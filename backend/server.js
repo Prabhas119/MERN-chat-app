@@ -17,7 +17,7 @@ const httpServer = http.createServer(app);
 // ✅ Allowed origins — fixed http, removed duplicate
 const allowedOrigins = [
   "http://localhost:5173",
-  // update after frontend deploy
+  "https://mern-chat-app-lime.vercel.app",// update after frontend deploy
 ];
 
 // ✅ Socket.IO setup

@@ -38,13 +38,13 @@ self.addEventListener("notificationclick", (event) => {
       clients.matchAll({ type: "window" }).then((clientList) => {
         // If app is already open, focus it
         for (const client of clientList) {
-          if (client.url.includes("localhost:5173") && "focus" in client) {
+          if (client.url.includes("mern-chat-app-lime.vercel.app") && "focus" in client) {
             return client.focus();
           }
         }
         // Otherwise open new tab
         if (clients.openWindow) {
-          return clients.openWindow("http://localhost:5173/chat");
+          return clients.openWindow("https://mern-chat-app-lime.vercel.app/chat");
         }
       })
     );
