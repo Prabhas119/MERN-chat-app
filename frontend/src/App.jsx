@@ -1,9 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider } from "./context/AuthContext";
-import { SocketProvider } from "./context/SocketContext";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Chat from "./pages/Chat";
+import { AuthProvider } from "./context/authcontext";
+import { SocketProvider } from "./context/socketcontext";
+import Login from "./pages/login";
+import Register from "./pages/register";
+import Chat from "./pages/chat";
 
 function App() {
   return (
