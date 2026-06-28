@@ -28,7 +28,7 @@ const io = new Server(httpServer, {
   },
 });
 
-socketHandler(io);
+sockethandler(io);
 
 // ✅ Middleware — only once
 app.use(cors({
