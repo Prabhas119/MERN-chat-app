@@ -17,7 +17,7 @@ const httpServer = http.createServer(app);
 // ✅ Allowed origins — fixed http, removed duplicate
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://your-frontend.vercel.app", // update after frontend deploy
+  // update after frontend deploy
 ];
 
 // ✅ Socket.IO setup
