@@ -4,9 +4,9 @@ const { Server } = require("socket.io");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
-const authRoutes = require("./routes/authroutes");
-const messageRoutes = require("./routes/messageroutes");
-const socketHandler = require("./socket/sockethandler");
+const authroutes = require("./routes/authroutes");
+const messageroutes = require("./routes/messageroutes");
+const sockethandler = require("./socket/sockethandler");
 
 dotenv.config();
 connectDB();
