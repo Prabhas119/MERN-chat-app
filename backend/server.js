@@ -14,28 +14,37 @@ connectDB();
 const app = express();
 const httpServer = http.createServer(app);
 
-// Socket.IO setup
+// ✅ Allowed origins — fixed http, removed duplicate
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://your-frontend.vercel.app", // update after frontend deploy
+];
+
+// ✅ Socket.IO setup
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:5173",  // Vite dev server
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
   },
 });
 
 socketHandler(io);
 
-// Middleware
-app.use(cors({ origin: "http://localhost:5173" }));
+// ✅ Middleware — only once
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
 app.use(express.json());
 
-// Routes
+// ✅ Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// Health check
-app.get("/", (req, res) => res.send(" MERN Chat API is running"));
+// ✅ Health check
+app.get("/", (req, res) => res.send("✅ MERN Chat API is running"));
 
 const PORT = process.env.PORT || 5000;
 httpServer.listen(PORT, () => {
-  console.log(` Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
