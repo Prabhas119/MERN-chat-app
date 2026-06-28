@@ -26,11 +26,16 @@ export default function Chat() {
     if (!user) navigate("/login");
   }, [user]);
 
-  useEffect(() => {
+   // ✅ Ask permission on load
+useEffect(() => {
+  const askPermission = async () => {
     if (Notification.permission === "default") {
-      Notification.requestPermission();
+      const result = await Notification.requestPermission();
+      console.log("Notification permission:", result);
     }
-  }, []);
+  };
+  askPermission();
+}, []);
 
   useEffect(() => {
     api.get("/auth/users")

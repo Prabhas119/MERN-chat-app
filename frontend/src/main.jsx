@@ -8,9 +8,12 @@ import {
   requestNotificationPermission,
 } from "./utils/notifications";
 
-// Register service worker + ask permission on app load
-registerServiceWorker();
-requestNotificationPermission();
+const init = async () => {
+  await registerServiceWorker();
+  await requestNotificationPermission();
+};
+
+init();
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
