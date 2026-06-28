@@ -4,9 +4,9 @@ const { Server } = require("socket.io");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
-const authRoutes = require("./routes/authRoutes");
-const messageRoutes = require("./routes/messageRoutes");
-const socketHandler = require("./socket/socketHandler");
+const authRoutes = require("./routes/authroutes");
+const messageRoutes = require("./routes/messageroutes");
+const socketHandler = require("./socket/sockethandler");
 
 dotenv.config();
 connectDB();
@@ -38,8 +38,8 @@ app.use(cors({
 app.use(express.json());
 
 // ✅ Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/messages", messageRoutes);
+app.use("/api/auth", authroutes);
+app.use("/api/messages", messageroutes);
 
 // ✅ Health check
 app.get("/", (req, res) => res.send("✅ MERN Chat API is running"));
