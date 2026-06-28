@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useSocket } from "../context/SocketContext";
+import { useSocket } from "../context/socketcontext";
 import api from "../utils/api";
 
 export default function Sidebar({

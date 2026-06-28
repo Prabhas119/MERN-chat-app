@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/authcontext";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
 
@@ -34,7 +34,7 @@ export default function Navbar({ selectedUser }) {
     <>
       <div style={styles.nav}>
         {/* Left — Logo */}
-        <span style={styles.logo}>💬 MernChat</span>
+        <span style={styles.logo}>💬Chat Application</span>
 
         {/* Center — Logged in user info */}
         <div style={styles.userInfo}>

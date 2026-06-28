@@ -30,7 +30,7 @@ export default function ChatInput({ onSend, onTyping, onStopTyping }) {
       <input
         style={styles.input}
         type="text"
-        placeholder="Type a message... (Enter to send)"
+        placeholder="Type a Message......"
         value={text}
         onChange={handleChange}
         onKeyDown={handleKey}

@@ -1,6 +1,6 @@
 
 import { useEffect, useRef, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/authcontext";
 
 export default function ChatBox({ messages, typingUser, onEdit, onDelete }) {
   const { user } = useAuth();
@@ -37,7 +37,7 @@ export default function ChatBox({ messages, typingUser, onEdit, onDelete }) {
     <div style={styles.box}>
       {messages.length === 0 && (
         <div style={styles.empty}>
-          <p>No messages yet. Say hello! 👋</p>
+          <p>Start conversation . Say hello! 👋</p>
         </div>
       )}
 

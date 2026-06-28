@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
-import ChatBox from "../components/ChatBox";
-import ChatInput from "../components/ChatInput";
+import Navbar from "../components/navbar";
+import Sidebar from "../components/sidebar";
+import ChatBox from "../components/chatbox";
+import ChatInput from "../components/chatinput";
 import api from "../utils/api";
-import { useAuth } from "../context/AuthContext";
-import { useSocket } from "../context/SocketContext";
+import { useAuth } from "../context/authcontext";
+import { useSocket } from "../context/socketcontext";
 import { useNavigate } from "react-router-dom";
 import { showNotification } from "../utils/notifications";
 
