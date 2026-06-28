@@ -75,8 +75,8 @@ export default function Login() {
 }
 
 const styles = {
-  page: { display:"flex", justifyContent:"center", alignItems:"center", minHeight:"100vh", background:"#0f172a" },
-  card: { background:"#1e293b", padding:"2rem", borderRadius:"12px", width:"360px", boxShadow:"0 8px 32px rgba(0,0,0,0.4)" },
+  page: { display:"flex", justifyContent:"center", alignItems:"center", minHeight:"100vh",minHeight:"100dvh" ,background:"#0f172a",padding:"20px" ,},
+  card: { background:"#1e293b", padding:"1.5rem", borderRadius:"12px", width:"100%",maxWidth:"380px", boxShadow:"0 8px 32px rgba(0,0,0,0.4)" },
   title: { color:"#e2e8f0", textAlign:"center", marginBottom:"1.5rem" },
   input: { display:"block", width:"100%", padding:"10px 14px", marginBottom:"1rem", borderRadius:"8px", border:"1px solid #334155", background:"#0f172a", color:"#e2e8f0", fontSize:"14px", boxSizing:"border-box" },
 

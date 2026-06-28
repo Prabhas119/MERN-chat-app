@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
 import Sidebar from "../components/sidebar";
@@ -19,6 +20,7 @@ export default function Chat() {
   const [messages, setMessages] = useState([]);
   const [typingUser, setTypingUser] = useState("");
   const [unreadCounts, setUnreadCounts] = useState({});
+  const [showChat, setShowChat] = useState(false); // ✅ mobile view toggle
 
   useEffect(() => {
     if (!user) navigate("/login");
@@ -92,14 +94,12 @@ export default function Chat() {
       }
     });
 
-    // ✅ Receive edited message from socket
     socket.on("message_edited", (updatedMsg) => {
       setMessages((prev) =>
         prev.map((msg) => msg._id === updatedMsg._id ? updatedMsg : msg)
       );
     });
 
-    // ✅ Receive deleted message from socket
     socket.on("message_deleted", (messageId) => {
       setMessages((prev) => prev.filter((msg) => msg._id !== messageId));
     });
@@ -130,7 +130,6 @@ export default function Chat() {
     }
   };
 
-  // ✅ Edit message
   const handleEdit = async (messageId, newContent) => {
     try {
       const { data } = await api.put(`/messages/edit/${messageId}`, {
@@ -148,7 +147,6 @@ export default function Chat() {
     }
   };
 
-  // ✅ Delete message
   const handleDelete = async (messageId) => {
     try {
       await api.delete(`/messages/delete/${messageId}`);
@@ -175,19 +173,46 @@ export default function Chat() {
     });
   };
 
+  // ✅ Handle user select on mobile
+  const handleSelectUser = (u) => {
+    setSelectedUser(u);
+    setShowChat(true); // show chat panel on mobile
+  };
+
+  // ✅ Handle back button on mobile
+  const handleBack = () => {
+    setShowChat(false);
+    setSelectedUser(null);
+  };
+
   return (
     <div style={styles.page}>
-      <Navbar selectedUser={selectedUser} />
+      <Navbar
+        selectedUser={selectedUser}
+        onBackClick={handleBack}
+      />
       <div style={styles.body}>
-        <Sidebar
-          users={users}
-          setUsers={setUsers}
-          selectedUser={selectedUser}
-          setSelectedUser={setSelectedUser}
-          unreadCounts={unreadCounts}
-          setUnreadCounts={setUnreadCounts}
-        />
-        <div style={styles.chatArea}>
+
+        {/* Sidebar — hidden on mobile when chat is open */}
+        <div style={{
+          ...styles.sidebarWrap,
+          display: showChat ? "none" : "flex",
+        }}>
+          <Sidebar
+            users={users}
+            setUsers={setUsers}
+            selectedUser={selectedUser}
+            setSelectedUser={handleSelectUser}
+            unreadCounts={unreadCounts}
+            setUnreadCounts={setUnreadCounts}
+          />
+        </div>
+
+        {/* Chat Area — hidden on mobile when sidebar shown */}
+        <div style={{
+          ...styles.chatArea,
+          display: !showChat && window.innerWidth < 768 ? "none" : "flex",
+        }}>
           {selectedUser ? (
             <>
               <div style={styles.chatHeader}>
@@ -227,14 +252,70 @@ export default function Chat() {
 }
 
 const styles = {
-  page: { display: "flex", flexDirection: "column", height: "100vh", background: "#0f172a", color: "#e2e8f0" },
-  body: { display: "flex", flex: 1, overflow: "hidden" },
-  chatArea: { display: "flex", flexDirection: "column", flex: 1, overflow: "hidden" },
-  chatHeader: { display: "flex", alignItems: "center", gap: "12px", padding: "12px 20px", background: "#1e293b", borderBottom: "1px solid #334155" },
-  chatAvatar: { width: "38px", height: "38px", borderRadius: "50%", background: "#6366f1", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontWeight: "700", fontSize: "16px", flexShrink: 0 },
-  chatName: { color: "#e2e8f0", fontWeight: "600", fontSize: "15px", margin: 0 },
-  chatEmail: { color: "#94a3b8", fontSize: "11px", margin: 0 },
-  noChat: { flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "8px" },
+  page: {
+    display: "flex",
+    flexDirection: "column",
+    height: "100vh",
+    height: "100dvh", // dynamic viewport for mobile
+    background: "#0f172a",
+    color: "#e2e8f0",
+  },
+  body: {
+    display: "flex",
+    flex: 1,
+    overflow: "hidden",
+  },
+  sidebarWrap: {
+    width: "100%",
+    maxWidth: "280px",
+    flexDirection: "column",
+    flex: 1,
+  },
+  chatArea: {
+    flexDirection: "column",
+    flex: 1,
+    overflow: "hidden",
+  },
+  chatHeader: {
+    display: "flex",
+    alignItems: "center",
+    gap: "12px",
+    padding: "12px 16px",
+    background: "#1e293b",
+    borderBottom: "1px solid #334155",
+  },
+  chatAvatar: {
+    width: "36px",
+    height: "36px",
+    borderRadius: "50%",
+    background: "#6366f1",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#fff",
+    fontWeight: "700",
+    fontSize: "15px",
+    flexShrink: 0,
+  },
+  chatName: {
+    color: "#e2e8f0",
+    fontWeight: "600",
+    fontSize: "14px",
+    margin: 0,
+  },
+  chatEmail: {
+    color: "#94a3b8",
+    fontSize: "11px",
+    margin: 0,
+  },
+  noChat: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "8px",
+  },
   noChatIcon: { fontSize: "48px", margin: 0 },
   noChatText: { color: "#e2e8f0", fontSize: "16px", fontWeight: "600", margin: 0 },
   noChatSub: { color: "#475569", fontSize: "13px", margin: 0 },
