@@ -7,8 +7,8 @@ const {
   markAsRead,
   editMessage,
   deleteMessage,
-} = require("../controllers/messageController");
-const { protect } = require("../middleware/authMiddleware");
+} = require("../controllers/messagecontroller");
+const { protect } = require("../middleware/authmiddleware");
 
 router.post("/send", protect, sendMessage);
 router.get("/:userId", protect, getMessages);
