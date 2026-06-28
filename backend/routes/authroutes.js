@@ -6,8 +6,8 @@ const {
   getAllUsers,
   searchUsers,
   deleteAccount,
-} = require("../controllers/authController");
-const { protect } = require("../middleware/authMiddleware");
+} = require("../controllers/authcontroller");
+const { protect } = require("../middleware/authmiddleware");
 
 router.post("/register", register);
 router.post("/login", login);
